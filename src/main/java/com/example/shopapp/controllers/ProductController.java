@@ -1,6 +1,6 @@
-package com.example.shopapp.controller;
+package com.example.shopapp.controllers;
 
-import com.example.shopapp.dto.ProductDTO;
+import com.example.shopapp.dtos.ProductDTO;
 
 import java.nio.file.Files;
 

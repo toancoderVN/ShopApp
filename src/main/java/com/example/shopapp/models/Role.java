@@ -1,24 +1,20 @@
-package com.example.shopapp.model;
+package com.example.shopapp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "product_images")
+@Table(name = "roles")
 @Data//toString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductImage {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Khôn có bản ghi nào giống nhau cả
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @Column(name = "image_url", length = 300)
-    private String imageUrl;
+    @Column(name = "name", nullable = false)
+    private String name;
 }

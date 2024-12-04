@@ -1,11 +1,8 @@
-package com.example.shopapp.controller;
+package com.example.shopapp.controllers;
 
-import com.example.shopapp.dto.OrderDTO;
-import com.example.shopapp.dto.OrderDetailDTO;
+import com.example.shopapp.dtos.OrderDetailDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

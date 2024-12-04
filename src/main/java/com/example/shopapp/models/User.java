@@ -1,4 +1,4 @@
-package com.example.shopapp.model;
+package com.example.shopapp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,6 +42,6 @@ public class User extends BaseEntity {
 
     @ManyToOne // Nhiều sang một
     @JoinColumn(name = "role_id")
-    private Role category;
+    private Role role;
 
 }
