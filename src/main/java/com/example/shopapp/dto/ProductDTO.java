@@ -1,4 +1,4 @@
-package com.example.shopapp.DTO;
+package com.example.shopapp.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.*;

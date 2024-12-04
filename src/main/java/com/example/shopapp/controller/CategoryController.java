@@ -1,6 +1,6 @@
 package com.example.shopapp.controller;
 
-import com.example.shopapp.DTO.CategoryDTO;
+import com.example.shopapp.dto.CategoryDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/categories")
+@RequestMapping("${api.prefix}/categories")
 //@Valid bỏ đi vì nó sẽ kiểm tra ngay ở đầu class, chưa chui vào hàm đã đã kiểm tra rồi
 public class CategoryController {
     //Hien thị tất cả các categories
