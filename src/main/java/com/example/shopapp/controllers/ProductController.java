@@ -4,7 +4,12 @@ import com.example.shopapp.dtos.ProductDTO;
 
 import java.nio.file.Files;
 
+import com.example.shopapp.dtos.ProductImageDTO;
+import com.example.shopapp.models.Product;
+import com.example.shopapp.models.ProductImage;
+import com.example.shopapp.services.IProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +28,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("${api.prefix}/products")
+@RequiredArgsConstructor
 public class ProductController {
-
+    private final IProductService productService;
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createProduct(
             @Valid @ModelAttribute ProductDTO productDTO,
@@ -39,6 +45,7 @@ public class ProductController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessages);
             }
+            Product newProduct = productService.createProduct(productDTO);
             List<MultipartFile> files = productDTO.getFiles();
             files = files == null ? new ArrayList<MultipartFile>() : files;
             for(MultipartFile file : files){
@@ -57,7 +64,10 @@ public class ProductController {
                 }
                 //Save the product
                 String filename = storeFile(file);// Dùng để lưu ảnh vào file uploads
-                //Lưu vào đối tượng Product trong DB => sẽ làm sau
+                //Lưu vào đối tượng Product trong DB
+                ProductImage productImage = productService.createProductImage(newProduct.getId(), ProductImageDTO.builder()
+                        .imageUrl(filename)
+                        .build());
                 //Lưu vào bảng product_images
             }
 
