@@ -5,13 +5,13 @@ import lombok.*;
 
 @Entity
 @Table(name = "product_images")
-@Data//toString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ProductImage {
+    public static final int MAXIMUM_IMAGES_PRODUCT = 5;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Khôn có bản ghi nào giống nhau cả
     private Long id;
