@@ -32,6 +32,7 @@ public class OrderDetailService implements IOrderDetailService{
                 .order(order)
                 .product(product)
                 .numberOfProducts(orderDetailDTO.getNumberOfProducts())
+                .price(orderDetailDTO.getPrice())
                 .totalMoney(orderDetailDTO.getTotalMoney())
                 .color(orderDetailDTO.getColor())
                 .build();
@@ -46,12 +47,28 @@ public class OrderDetailService implements IOrderDetailService{
     }
 
     @Override
-    public OrderDetail updateOrderDetail(Long id, OrderDetailDTO newOrderDetailData) {
-        return null;
+    public OrderDetail updateOrderDetail(Long id, OrderDetailDTO orderDetailDTO) throws DataNotFoundException {
+        //Tìm xem order detail có tồn tại không đã
+        OrderDetail existingOrderDetail = orderDetailRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Cannot find order detail with id: "+id));
+        //Tìm xem order có tồn tại không
+        Order existingOrder = orderRepository.findById(orderDetailDTO.getOrderId())
+                .orElseThrow(()-> new DataNotFoundException("Cannot find order with id: "+id));
+        //Tìm xem product có tồn tại không
+        Product existingProduct = productRepository.findById(orderDetailDTO.getProductId())
+                .orElseThrow(()-> new DataNotFoundException(
+                        "Cannot find product with id: " + orderDetailDTO.getProductId()));
+        existingOrderDetail.setPrice(orderDetailDTO.getPrice());
+        existingOrderDetail.setNumberOfProducts(orderDetailDTO.getNumberOfProducts());
+        existingOrderDetail.setTotalMoney(orderDetailDTO.getTotalMoney());
+        existingOrderDetail.setColor(orderDetailDTO.getColor());
+        existingOrderDetail.setOrder(existingOrder);
+        existingOrderDetail.setProduct(existingProduct);
+        return orderDetailRepository.save(existingOrderDetail);
     }
 
     @Override
-    public void deleteOrderDetail(Long id) {
+    public void deleteById(Long id) {
             orderDetailRepository.deleteById(id);
     }
 
