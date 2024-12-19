@@ -12,6 +12,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -29,13 +30,14 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration}")
     private int expiration; //save to an environment variable
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.secretKey}")
     private String secretKey;
 
     public String generateToken(User user) throws Exception {
         //properties -> claims
         Map<String, Object> claims = new HashMap<>();
         //this.generateSecretKey(); //Dùng một lần thôi, cần nữa thì dùng tiếp
+        claims.put("phoneNumber",user.getPhoneNumber());
         try{
             String token = Jwts.builder()
                     .setClaims(claims) //how to extract claims from this ?
@@ -65,7 +67,7 @@ public class JwtTokenUtil {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -80,6 +82,14 @@ public class JwtTokenUtil {
         return expirationDate.before(new Date());
     }
 
+    public String extractphoneNumber(String token){
+        return extractClaim(token, Claims::getSubject);
+    }
 
-
+    //Kiểm tra username, token còn hạn hay không, hay phoneNumber còn hạn hay không
+    public boolean validateToken(String token, UserDetails userDetails){
+        String phoneNumber = extractphoneNumber(token);
+        return (phoneNumber.equals(userDetails.getUsername()))
+                && !isTokenExpired(token);
+    }
 }

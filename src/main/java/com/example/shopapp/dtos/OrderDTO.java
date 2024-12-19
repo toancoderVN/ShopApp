@@ -50,7 +50,4 @@ public class OrderDTO {
 
     @JsonProperty("payment_method")
     private String paymentMethod;
-
-
-
 }

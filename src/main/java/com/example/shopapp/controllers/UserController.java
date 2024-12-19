@@ -44,7 +44,9 @@ public class UserController {
         //Kiểm tra thông tin đăng nhập và sinh token
 
         try {
-            String token = userService.login(userLoginDTO.getPhoneNumber(), userLoginDTO.getPassword() );
+            String token = userService.login(userLoginDTO.getPhoneNumber(),
+                    userLoginDTO.getPassword()
+                    );
             //Trả về token trong response
             return ResponseEntity.ok(token);
         } catch (Exception e) {

@@ -30,5 +30,4 @@ public class OrderDetailDTO {
     private Float totalMoney;
 
     private String color;
-
 }

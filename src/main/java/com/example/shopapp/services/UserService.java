@@ -27,7 +27,7 @@ public class UserService implements IUserService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public User createUser(UserDTO userDTO) throws DataNotFoundException {
+    public User createUser(UserDTO userDTO) throws Exception {
         //Register User
         String phoneNumber = userDTO.getPhoneNumber();
         //Kiểm tra xem số điện thoại đã tồn tại hay chưa

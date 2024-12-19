@@ -26,5 +26,4 @@ public class ProductDTO {
     @JsonProperty("category_id")
     // Trường JSON category_id trong dữ liệu JSON sẽ được ánh xạ tới thuộc tính categoryId trong class Java này.
     private Long categoryId;
-
 }

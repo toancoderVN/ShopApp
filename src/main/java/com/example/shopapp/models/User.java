@@ -56,7 +56,9 @@ public class User extends BaseEntity implements UserDetails {
     //Lấy ra các quyền (Nó chính là bảng ROLE)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_"+getRole().getName()));
+        //authorityList.add(new SimpleGrantedAuthority("ROLE_"+getRole().getName()));
+        authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
         return authorityList;
     }
 
